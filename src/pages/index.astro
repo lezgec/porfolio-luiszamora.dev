@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Badge from "../components/Badge.astro";
+import MaletinIcon from "../../public/icons/MaletinIcon.astro";
+import LinkedinIcon from "../../public/icons/LinkedinIcon.astro";
+import GithubIcon from "../../public/icons/GithubIcon.astro";
+import MailIcon from "../../public/icons/MailIcon.astro";
+import CodeIcon from "../../public/icons/CodeIcon.astro";
+import SocialPill from "../components/SocialPill.astro";
+import Experience from "../components/Experience.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import Footer from "../components/Footer.astro";
+import Projects from "../components/Projects.astro";
+import UserIcon from "../../public/icons/UserIcon.astro";
+---
+
+<Layout title="Portfolio Luis Zamora - Desarrollador y Programdaor Front End">
+  <main class="px-4 items-start">
+    <SectionContainer class="py-40">
+      <img
+        src="public/img/LezgecPhoto.webp"
+        alt="LuisZamoraPhoto"
+        class="rounded-full size-12 mb-4"
+      />
+      <h1
+        class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
+      >
+        Hey, Soy Lezgec <a
+          href="https://www.linkedin.com/in/lezg/"
+          target="_blank"
+          rel="noopener"
+          class="flex justify-center items-center"
+        >
+          <Badge>Disponible para Trabajar</Badge></a
+        >
+      </h1>
+      <h2 class="text-white text-xl lg:text-2xl text-pretty max-w-[700px]">
+        +3 años de experiencia adquirida en la universiad y en el campo laboral. <span
+          class="text-red-200">De Guayaquil, Ecuador 🇪🇨.</span
+        ><span class="text-yellow-200"> Desarrollador</span> actualmente cursando
+        una <span class="text-yellow-200"> Ingenieria en Software </span>y con
+        conocimientos certificados en<span class="text-yellow-200">
+          Ciberseguridad.</span
+        >
+      </h2>
+
+      <nav class="flex gap-4 mt-8 text-wrap">
+        <SocialPill href="https://www.linkedin.com/in/lezg/">
+          <LinkedinIcon class="size-4 md:size-6" />
+          LinkedIn
+        </SocialPill>
+
+        <SocialPill href="https://github.com/lezgec/">
+          <GithubIcon class="size-4 md:size-6" />
+          Github
+        </SocialPill>
+
+        <SocialPill href="mailto:contact@luiszamora.dev">
+          <MailIcon class="size-4 md:size-6" />
+          contact@luiszamora.dev
+        </SocialPill>
+      </nav>
+    </SectionContainer>
+
+    <SectionContainer id="experiencia" class="py-12">
+      <h2 class="flex items-center text-2xl font-semibold mb-6">
+        <MaletinIcon class="size-4 lg:size-6 mr-2" />
+        Experiencia Laboral
+      </h2>
+      <Experience />
+    </SectionContainer>
+
+    <SectionContainer id="proyectos" class="py-12">
+      <h2 class="flex items-center text-2xl font-semibold mb-6">
+        <CodeIcon class="size-4 lg:size-6 mr-2" />
+        Proyectos
+      </h2>
+      <Projects />
+    </SectionContainer>
+
+    <SectionContainer id="sobre-mi" class="py-12">
+      <h2 class="flex items-center text-2xl font-semibold mb-6">
+        <UserIcon class="size-4 lg:size-6 mr-2" />
+        Sobre Mi
+      </h2>
+      <span class="flex sm:flex-row flex-col-reverse items-center">
+        <span>
+          <p class="text-lg text-wrap">
+            Soy un estudiante de Ingeniería de Software con una pasión por crear
+            experiencias digitales fluidas. Durante los últimos tres años, he
+            perfeccionado mis habilidades en el desarrollo front-end,
+            especializándome en tecnologías como Vue.js, Nuxt.js, JavaScript y
+            TypeScript.
+            <p class="text-lg text-wrap">
+              Además, cuento con un año de experiencia práctica en desarrollo
+              móvil, con conocimientos en Flutter, Dart y soluciones de gestión
+              de estado.
+            </p>
+            <p class="text-lg text-wrap">
+              Actualmente, tengo conocimientos en ciberseguridad y cuento con
+              certificaciones en el área.
+            </p>
+          </p>
+        </span>
+        <img
+          src="public/img/AboutMePic.webp"
+          alt="LuisZamoraPhoto"
+          class="sm:max-w-70 max-w-60 py-4"
+        />
+      </span>
+    </SectionContainer>
+
+    <Footer />
+  </main>
+</Layout>

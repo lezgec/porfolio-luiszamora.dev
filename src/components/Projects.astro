@@ -1,0 +1,87 @@
+---
+import AstroIcon from "../../public/icons/AstroIcon.astro";
+import GithubIcon from "../../public/icons/GithubIcon.astro";
+import HtmlIcon from "../../public/icons/HtmlIcon.astro";
+import LinkIcon from "../../public/icons/LinkIcon.astro";
+import VueIcon from "../../public/icons/VueIcon.astro";
+import TailwindIcon from "../../public/icons/TailwindIcon.astro";
+
+const TAGS = {
+  VUE: {
+    name: "Vue.js",
+    class: "bg-green-700 text-white",
+    icon: VueIcon,
+  },
+  HTML: {
+    name: "HTML",
+    class: "bg-orange-400 text-white",
+    icon: HtmlIcon,
+  },
+  ASTRO: {
+    name: "Astro",
+    class: "bg-blue-500 text-white",
+    icon: AstroIcon,
+  },
+  TAILWIND: {
+    name: "Tailwind",
+    class: "bg-blue-700 text-white",
+    icon: TailwindIcon,
+  },
+};
+
+const PROJECTS = [
+  {
+    title: "Luiszamora.dev - Porfolio Personal",
+    description:
+      "Portafolio personal de Luis Zamora, el cual estas viendo en este momento, desarrollado con Astro y Tailwind.",
+    link: "#",
+    github: "#",
+    image: "../public/img/Project_1.webp",
+    tags: [TAGS.TAILWIND, TAGS.ASTRO],
+  },
+];
+---
+
+{
+  PROJECTS.map(({ title, description, image, tags }) => (
+    <article class="flex sm:flex-row flex-col gap-x-4">
+      <img
+        class="sm:max-w-96 rounded-2xl shadow-2xl shadow-white/10 "
+        src={image}
+        alt={`Captura de pantalla del Proyeto ${image}`}
+      />
+      <span>
+        <h3 class="text-2xl font-semibold text-white mt-3 ">{title}</h3>
+        <ul class="flex flex-row my-3">
+          {tags.map((tag) => (
+            <li>
+              <span
+                class={`flex gap-x-2 mr-2 items-center rounded-full text-sm px-4 py-2 ${tag.class}`}
+              >
+                <tag.icon class="size-4 lg:size-6" />
+                {tag.name}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="text-lg text-gray-500 text-pretty">{description}</p>
+        <span class="flex flex-row gap-x-4 mt-4">
+          <a
+            href="Https://luiszamora.dev"
+            class="flex flex-row items-center text-white border border-gray-700 bg-gray-900 hover:bg-gray-700 rounded-lg text-xl px-3 py-2 text-center"
+          >
+            <LinkIcon class="size-4 lg:size-6 mr-2" />
+            Preview
+          </a>
+          <a
+            href="https://github.com/lezgec/Portafolio-Luis-Zamora"
+            class="flex flex-row items-center text-white border border-gray-700 bg-gray-900 hover:bg-gray-700 rounded-lg text-xl px-3 py-2 text-center"
+          >
+            <GithubIcon class="size-4 lg:size-6 mr-2" />
+            Code
+          </a>
+        </span>
+      </span>
+    </article>
+  ))
+}

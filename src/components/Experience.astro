@@ -1,0 +1,31 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EXPERIENCE = [
+  {
+    date: "Noviembre 2023 - Junio 2024",
+    title: "Desarrollador Front End",
+    description:
+      "Como desarrollador Front End, me encargue de la creación de la interfaz de usuario de las aplicaciones web, utilizando tecnologías como HTML, CSS y JavaScript. Ademas de Frameworks como Vue.js, complementando con PrimeVue, PrimeFlex y herramientas como Figma.",
+      place: "Kronio",
+    },
+  {
+    date: "Abril 2023 - Agosto 2023",
+    title: "Asistente TI",
+    description:
+      "Como asistente de TI, me encargue de la supervisión de la red de la empresa, mantenimiento de equipos y soporte técnico a los usuarios. Ademas de la creación y automatizacion de Informes.",
+      place: "SIAS LATAM",
+    },
+      
+  ];
+---
+
+<ol class=" ml-3 relative border-s border-gray-200 dark:border-gray-700">
+  {
+    EXPERIENCE.map((Experience) => (
+      <li class="mb-10 ms-4">
+        <ExperienceItem {...Experience} />
+      </li>
+    ))
+  }
+</ol>
