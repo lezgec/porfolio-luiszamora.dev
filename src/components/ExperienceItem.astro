@@ -9,19 +9,19 @@ const { title, description, place, date } = Astro.props;
 ---
 
 <div
-  class="absolute w-3 h-3 bg-yellow-200 rounded-full mt-1.5 -start-1.5 border border-gray-500 dark:border-gray-900 dark:bg-gray-700"
+  class="absolute w-3 h-3 bg-blue-700 rounded-full mt-1.5 -start-1.5 border border-red-500 dark:border-yellow-500 dark:bg-yellow-500"
 >
 </div>
-<h3 class="text-lg font-semibold text-yellow-200 dark:text-white">{title}</h3>
-<p class="mb-1 text-base font-normal dark:text-gray-400">
+<h3 class="text-xl font-semibold text-blue-700 dark:text-yellow-500">{title}</h3>
+<p class="mb-1 text-base text-red-500 font-semibold dark:text-white">
   {place}
 </p>
 <time
-  class="mb-1 text-sm font-normal leading-none text-red-200 dark:text-gray-500"
+  class="mb-1 text-sm font-normal leading-none text-gray-600 dark:text-gray-300"
 >
   {date}
 </time>
 
-<p class="mb-4 text-base font-normal dark:text-gray-400">
+<p class="my-4 text-base font-normal dark:text-gray-200">
   {description}
 </p>

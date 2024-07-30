@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Badge from "../components/Badge.astro";
 import MaletinIcon from "../../public/icons/MaletinIcon.astro";
 import LinkedinIcon from "../../public/icons/LinkedinIcon.astro";
-import GithubIcon from "../../public/icons/GithubIcon.astro";
 import MailIcon from "../../public/icons/MailIcon.astro";
 import CodeIcon from "../../public/icons/CodeIcon.astro";
 import SocialPill from "../components/SocialPill.astro";
@@ -17,13 +16,16 @@ import UserIcon from "../../public/icons/UserIcon.astro";
 <Layout title="Portfolio Luis Zamora - Desarrollador y Programador Front End">
   <main class="px-4 items-start">
     <SectionContainer class="py-40">
-      <img
-        src='https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/30cc16bf893438f55d0b9e1c88472805fb85d5fc/public/images/lezgec.jpg'
-        alt="LuisZamoraPhoto"
-        class="rounded-full size-12 mb-4"
-      />
+      <div class="flex gap-4 mb-4 items-center">
+        <img
+          src="https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/30cc16bf893438f55d0b9e1c88472805fb85d5fc/public/images/lezgec.jpg"
+          alt="LuisZamoraPhoto"
+          class="rounded-full size-20"
+        />
+        <Badge> Disponible para Trabajar</Badge>
+      </div>
       <h1
-        class=" text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
+        class="text-4xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
       >
         Hey, Soy Lezgec <a
           href="https://www.linkedin.com/in/lezg/"
@@ -31,79 +33,78 @@ import UserIcon from "../../public/icons/UserIcon.astro";
           rel="noopener"
           class="flex justify-center items-center"
         >
-          <Badge>Disponible para Trabajar</Badge></a
-        >
+        </a>
       </h1>
-      <h2 class=" text-xl lg:text-2xl text-pretty max-w-[700px]">
+      <h2 class="text-xl lg:text-2xl text-pretty max-w-[700px]">
         +3 años de experiencia adquirida en la universiad y en el campo laboral. <span
-          class="text-red-200">De Guayaquil, Ecuador 🇪🇨.</span
-        ><span class="text-yellow-200"> Desarrollador</span> actualmente cursando
-        una <span class="text-yellow-200"> Ingenieria en Software </span>y con
-        conocimientos certificados en<span class="text-yellow-200">
+          class="font-semibold dark:text-red-200 text-red-500"
+          >De Guayaquil, Ecuador 🇪🇨.</span
+        ><span class="font-semibold text-blue-700 dark:text-yellow-200">
+          Desarrollador</span
+        > actualmente cursando una <span
+          class="font-semibold text-blue-700 dark:text-yellow-200"
+        >
+          Ingenieria en Software
+        </span>y con conocimientos certificados en<span
+          class="font-semibold text-blue-700 dark:text-yellow-200"
+        >
           Ciberseguridad.</span
         >
       </h2>
 
       <nav class="flex gap-4 mt-8 text-wrap">
-        <SocialPill href="https://www.linkedin.com/in/lezg/">
-          <LinkedinIcon class="size-4 md:size-6" />
-          LinkedIn
-        </SocialPill>
-
-        <SocialPill href="https://github.com/lezgec/">
-          <GithubIcon class="size-4 md:size-6" />
-          Github
-        </SocialPill>
-
         <SocialPill href="mailto:contact@luiszamora.dev">
-          <MailIcon class="size-4 md:size-6" />
-          contact@luiszamora.dev
+          <MailIcon class="size-6 md:size-8" />
+          Contáctame
+        </SocialPill>
+
+        <SocialPill href="https://www.linkedin.com/in/lezg/">
+          <LinkedinIcon class="size-6 md:size-8" />
+          LinkedIn
         </SocialPill>
       </nav>
     </SectionContainer>
 
     <SectionContainer id="experiencia" class="py-12">
-      <h2 class="flex items-center text-2xl font-semibold mb-6">
-        <MaletinIcon class="size-4 lg:size-6 mr-2" />
+      <h2 class="flex items-center text-3xl font-semibold mb-6">
+        <MaletinIcon class="size-7 lg:size-10 mr-2" />
         Experiencia Laboral
       </h2>
       <Experience />
     </SectionContainer>
 
     <SectionContainer id="proyectos" class="py-12">
-      <h2 class="flex items-center text-2xl font-semibold mb-6">
-        <CodeIcon class="size-4 lg:size-6 mr-2" />
+      <h2 class="flex items-center text-3xl font-semibold mb-6">
+        <CodeIcon class="size-7 lg:size-10 mr-2" />
         Proyectos
       </h2>
       <Projects />
     </SectionContainer>
 
     <SectionContainer id="sobre-mi" class="py-12">
-      <h2 class="flex items-center text-2xl font-semibold mb-6">
-        <UserIcon class="size-4 lg:size-6 mr-2" />
+      <h2 class="flex items-center text-3xl font-semibold mb-6">
+        <UserIcon class="size-7 lg:size-10 mr-2" />
         Sobre Mi
       </h2>
-      <span class="flex sm:flex-row flex-col-reverse items-center">
+      <span class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
         <span>
-          <p class="text-lg text-wrap">
-            Soy un estudiante de Ingeniería de Software con una pasión por crear
+          <p class="text-lg text-justify">
+            Me llamo Luis Zamora, soy un estudiante de Ingeniería de Software con una pasión por crear
             experiencias digitales fluidas. Durante los últimos tres años, he
             perfeccionado mis habilidades en el desarrollo front-end,
             especializándome en tecnologías como Vue.js, Nuxt.js, JavaScript y
             TypeScript.
-            <p class="text-lg text-wrap">
-              Además, cuento con un año de experiencia práctica en desarrollo
-              móvil, con conocimientos en Flutter, Dart y soluciones de gestión
-              de estado.
-            </p>
-            <p class="text-lg text-wrap">
-              Actualmente, tengo conocimientos en ciberseguridad y cuento con
-              certificaciones en el área.
-            </p>
+          </p>
+          <p class="text-lg text-justify">
+            Actualmente, tengo conocimientos en ciberseguridad y cuento con
+            certificaciones en el área.
+          </p>
+          <p class="text-lg text-justify">
+            Soy el tipo de persona que no se queda con el: Que pasa si...?.
           </p>
         </span>
         <img
-          src='https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/main/public/images/sobre_mi.png'
+          src="https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/main/public/images/sobre_mi.png"
           alt="LuisZamoraPhoto"
           class="sm:max-w-70 max-w-96 py-4"
         />
