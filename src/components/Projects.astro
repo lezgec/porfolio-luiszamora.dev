@@ -5,6 +5,9 @@ import HtmlIcon from "../../public/icons/HtmlIcon.astro";
 import LinkIcon from "../../public/icons/LinkIcon.astro";
 import VueIcon from "../../public/icons/VueIcon.astro";
 import TailwindIcon from "../../public/icons/TailwindIcon.astro";
+import DotNetIcon from "../../public/icons/DotNetIcon.astro";
+import SqLiteIcon from "../../public/icons/SqLiteIcon.astro";
+import CSharp from "../../public/icons/CSharpIcon.astro";
 
 const TAGS = {
   VUE: {
@@ -27,6 +30,21 @@ const TAGS = {
     class: "bg-blue-700 text-white",
     icon: TailwindIcon,
   },
+  DOTNET: {
+    name: ".NET",
+    class: "bg-blue-700 text-white",
+    icon: DotNetIcon,
+  },
+  SQLITE: {
+    name: "SQLITE",
+    class: "bg-blue-700 text-white",
+    icon: SqLiteIcon,
+  },
+  CSHARP: {
+    name: "CSHARP",
+    class: "bg-blue-700 text-white",
+    icon: CSharp,
+  },
 };
 
 const PROJECTS = [
@@ -34,17 +52,24 @@ const PROJECTS = [
     title: "Luiszamora.dev - Porfolio Personal",
     description:
       "Portafolio personal de Luis Zamora, el cual estas viendo en este momento, desarrollado con Astro y Tailwind.",
-    link: "#",
-    github: "#",
+    link: "Https://luiszamora.dev/",
+    github: "https://github.com/lezgec/porfolio-luiszamora.dev",
     image: 'https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/main/public/images/project1.jpg',
     tags: [TAGS.TAILWIND, TAGS.ASTRO],
   },
+  {title: "Registro de Calificaciones V1.0",
+    description:
+      "Aplicacion de Escritorio para Registro de calificaciones sencillo.",
+    link: "https://youtube.com",
+    github: "https://github.com/lezgec/RegistroCalificaciones.git",
+    image: 'https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/main/public/images/project1.jpg',
+    tags: [TAGS.DOTNET, TAGS.SQLITE, TAGS.CSHARP],}
 ];
 ---
 
 {
-  PROJECTS.map(({ title, description, image, tags }) => (
-    <article class="flex sm:flex-row flex-col gap-x-4">
+  PROJECTS.map(({ title, description, image, tags, link, github }) => (
+    <article class="flex sm:flex-row flex-col gap-x-4 mb-5">
       <img
         class="sm:max-w-96 rounded-2xl shadow-2xl shadow-white/10 "
         src={image}
@@ -67,7 +92,7 @@ const PROJECTS = [
         <p class="text-lg dark:text-gray-200 text-pretty">{description}</p>
         <span class="flex flex-row gap-x-4 mt-4">
           <a
-            href="Https://luiszamora.dev"
+            href= {link}
             target="_blank"
           rel="noopener"
             class="flex flex-row items-center text-white border border-gray-700 bg-gray-900 hover:bg-gray-700 rounded-lg text-xl px-3 py-2 text-center"
@@ -76,7 +101,7 @@ const PROJECTS = [
             Preview
           </a>
           <a
-            href="https://github.com/lezgec/porfolio-luiszamora.dev"
+            href={github}
             target="_blank"
             rel="noopener"
             class="flex flex-row items-center text-white border border-gray-700 bg-gray-900 hover:bg-gray-700 rounded-lg text-xl px-3 py-2 text-center"
