@@ -8,6 +8,8 @@ import TailwindIcon from "../../public/icons/TailwindIcon.astro";
 import DotNetIcon from "../../public/icons/DotNetIcon.astro";
 import SqLiteIcon from "../../public/icons/SqLiteIcon.astro";
 import CSharp from "../../public/icons/CSharpIcon.astro";
+import JavaScriptIcon from "../../public/icons/JavaScriptIcon.astro";
+import CssIcon from "../../public/icons/CssIcon.astro";
 
 const TAGS = {
   VUE: {
@@ -45,6 +47,16 @@ const TAGS = {
     class: "bg-blue-700 text-white",
     icon: CSharp,
   },
+  JS: {
+    name: "JavaScript",
+    class: "bg-blue-700 text-white",
+    icon: JavaScriptIcon,
+  },
+  CSS: {
+    name: "CSS",
+    class: "bg-blue-700 text-white",
+    icon: CssIcon,
+  },
 };
 
 const PROJECTS = [
@@ -64,6 +76,14 @@ const PROJECTS = [
     github: "https://github.com/lezgec/RegistroCalificaciones.git",
     image: 'https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/refs/heads/dev/public/images/project2.png',
     tags: [TAGS.DOTNET, TAGS.SQLITE, TAGS.CSHARP],}
+  ,
+  {title: "Calculadora IMC WEB",
+    description:
+      "Aplicacion web para calcular el IMC.",
+    link: "#proyectos",
+    github: "https://github.com/lezgec/CALCULADOR-IMC.git",
+    image: 'https://raw.githubusercontent.com/lezgec/porfolio-luiszamora.dev/refs/heads/dev/public/images/project3.png',
+    tags: [TAGS.HTML, TAGS.JS, TAGS.CSS],}
 ];
 ---
 
