@@ -11,25 +11,29 @@ function calcularIMC() {
     const imc = (peso / (altura * altura)).toFixed(2);
     let clasificacion = "";
 
-    if (imc < 18.5) {
+    if (imc >= 0 && imc < 18.5) {
     clasificacion = "Peso Bajo";
     document.getElementById("clasificacion").style.color = "blue";
-    } else if (imc < 25) {
+    } else if (imc >= 18.5 && imc < 25) {
         clasificacion = "Peso Normal";
         document.getElementById("clasificacion").style.color = "green";
-    } else if (imc < 30) {
+    } else if (imc >= 25 && imc < 30) {
         clasificacion = "Sobrepeso";
         document.getElementById("clasificacion").style.color = "yellow";
-    } else if (imc < 35) {
+    } else if (imc >= 30 && imc < 35) {
         clasificacion = "Obesidad Leve";
         document.getElementById("clasificacion").style.color = "orange";
-    } else if (imc < 40) {
+    } else if (imc >= 35 && imc < 40) {
         clasificacion = "Obesidad Media";
         document.getElementById("clasificacion").style.color = "red";
-    } else { 
+    } else if (imc >= 40) {
         clasificacion = "Obesidad Mórbida";
         document.getElementById("clasificacion").style.color = "red";
+    } else {
+        clasificacion = "Valor inválido";
+        document.getElementById("clasificacion").style.color = "black";
     }
+
     
 
     document.getElementById("resultado").innerText = `Su índice de Masa Corporal(IMC) es de:  ${imc} `;
