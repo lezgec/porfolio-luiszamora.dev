@@ -12,8 +12,8 @@ function calcularIMC() {
     let clasificacion = "";
 
     if (imc < 18.5) {
-        clasificacion = "Peso Bajo";
-        document.getElementById("clasificacion").style.color = "blue";
+    clasificacion = "Peso Bajo";
+    document.getElementById("clasificacion").style.color = "blue";
     } else if (imc < 25) {
         clasificacion = "Peso Normal";
         document.getElementById("clasificacion").style.color = "green";
@@ -26,9 +26,10 @@ function calcularIMC() {
     } else if (imc < 40) {
         clasificacion = "Obesidad Media";
         document.getElementById("clasificacion").style.color = "red";
-    } else (imc < 45) 
+    } else { 
         clasificacion = "Obesidad Mórbida";
         document.getElementById("clasificacion").style.color = "red";
+    }
     
 
     document.getElementById("resultado").innerText = `Su índice de Masa Corporal(IMC) es de:  ${imc} `;
