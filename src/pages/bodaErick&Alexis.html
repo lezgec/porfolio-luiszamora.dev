@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Erick & Alexis — Álbum de la boda</title>
+
+  <!-- Tipos similares (script elegante + serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy-0:#071426;
+      --navy-1:#081A2F;
+      --navy-2:#0B223A;
+      --gold:#B7925D;
+      --gold-2:#D8C29A;
+      --ink:#ECF1F7;
+      --muted:#B8C3D0;
+      --stroke: rgba(255,255,255,.14);
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.10);
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --r: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      background:
+        radial-gradient(900px 650px at 20% 0%, rgba(183,146,93,.18), transparent 55%),
+        radial-gradient(900px 650px at 85% 10%, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(180deg, var(--navy-0), var(--navy-2));
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    /* Tarjeta estilo invitación */
+    .card{
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius: calc(var(--r) + 10px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+
+    /* “brillo” sutil dorado */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 25%, rgba(183,146,93,.22), transparent 45%);
+      transform: rotate(-8deg);
+      pointer-events:none;
+    }
+
+    .inner{
+      position: relative;
+      padding: 18px;
+    }
+
+    .header{
+      text-align:center;
+      padding: 8px 0 14px;
+    }
+    .names{
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(46px, 7vw, 86px);
+      color: var(--gold-2);
+      margin: 0;
+      line-height: .95;
+      text-shadow: 0 10px 35px rgba(0,0,0,.35);
+    }
+    .subtitle{
+      margin-top: 8px;
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .divider{
+      width: min(460px, 85%);
+      height: 1px;
+      margin: 14px auto 0;
+      background: linear-gradient(90deg, transparent, rgba(183,146,93,.65), transparent);
+    }
+
+    .text{
+      text-align:center;
+      margin-top: 14px;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .date{
+      text-align:center;
+      margin-top: 10px;
+      font-size: clamp(40px, 7vw, 64px);
+      letter-spacing: .06em;
+      color: var(--gold-2);
+      font-weight: 500;
+    }
+
+    .hint{
+      text-align:center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .uploader{
+      margin-top: 14px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .filebox{
+      border: 1px dashed rgba(183,146,93,.55);
+      background: rgba(8,25,43,.35);
+      border-radius: var(--r);
+      padding: 14px;
+    }
+
+    input[type="file"]{
+      width:100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .controls{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button{
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      cursor:pointer;
+      font-weight: 600;
+      letter-spacing: .02em;
+      min-width: 140px;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
+    button:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    button:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+
+    button.primary{
+      background: linear-gradient(180deg, rgba(183,146,93,.95), rgba(183,146,93,.72));
+      color: #0B1A2A;
+      border-color: rgba(183,146,93,.95);
+    }
+    button.primary:hover{ background: linear-gradient(180deg, rgba(216,194,154,.95), rgba(183,146,93,.80)); }
+
+    .stats{
+      text-align:center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .bar{
+      width:100%;
+      height: 10px;
+      background: rgba(255,255,255,.10);
+      border-radius: 999px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(216,194,154,.9), rgba(183,146,93,.9));
+      transition: width .15s linear;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      padding: 14px 0 2px;
+    }
+
+    .thumb{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r);
+      overflow:hidden;
+      position: relative;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+    .thumb .tag{
+      position:absolute; top:10px; left:10px;
+      background: rgba(7,20,38,.72);
+      border: 1px solid rgba(183,146,93,.45);
+      color: var(--gold-2);
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+    .thumb img, .thumb video{
+      width:100%;
+      height: 160px;
+      object-fit: cover;
+      display:block;
+    }
+    .meta{
+      padding: 10px 12px 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .meta b{ color: var(--ink); font-weight: 600; font-size: 13px; }
+
+    .log{
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+      white-space: pre-wrap;
+      color: var(--muted);
+    }
+    .ok{ color:#63f0c0; }
+    .err{ color:#ff7b7b; }
+    .warn{ color:#ffd37a; }
+
+    .footer{
+      text-align:center;
+      padding: 6px 0 16px;
+      font-size: 13px;
+      color: rgba(233,241,247,.75);
+    }
+
+    /* Responsive: en móvil que se vea “tipo invitación” vertical */
+    @media (max-width: 520px){
+      .inner{ padding: 16px; }
+      button{ flex: 1; min-width: 0; }
+      .text{ font-size: 17px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="inner">
+        <div class="header">
+          <h1 class="names">Erick & Alexis</h1>
+          <div class="subtitle">¡Nos casamos!</div>
+          <div class="divider"></div>
+        </div>
+
+        <div class="text">
+          Nos sentimos muy felices de iniciar un nuevo capítulo y queremos guardar
+          los recuerdos de este día con ustedes. 💛
+        </div>
+
+        <div class="date">31.01.26</div>
+        <div class="hint">Sube tus fotos y videos aquí (desde tu celular o PC).</div>
+
+        <div class="uploader">
+          <div class="filebox">
+            <input id="files" type="file" accept="image/*,video/*" multiple />
+            <div class="stats" id="stats">0 archivos seleccionados.</div>
+
+            <div class="controls" style="margin-top:12px;">
+              <button id="uploadBtn" class="primary">Subir</button>
+              <button id="clearBtn">Limpiar</button>
+            </div>
+
+            <div class="bar" aria-label="progreso" style="margin-top:12px;">
+              <div id="barFill"></div>
+            </div>
+
+            <div class="log" id="log"></div>
+          </div>
+
+          <div class="grid" id="grid"></div>
+
+          <div class="footer">
+            Por favor sube solo contenido de la boda. Evita información sensible.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // =========================
+  // CONFIG
+  // =========================
+  const CLOUD_NAME = "dpy74trye";
+  const UPLOAD_PRESET = "luiszamora.dev";
+  const FOLDER = "mi-boda-2026";
+
+  const MAX_FILES_PER_BATCH = 20;
+  const MAX_FILE_MB = 100;
+  const ALLOWED = [
+    "image/jpeg","image/png","image/webp","image/heic","image/heif",
+    "video/mp4","video/quicktime","video/webm"
+  ];
+  const ALLOWED_EXT = ["jpg","jpeg","png","webp","heic","heif","mp4","mov","webm"];
+
+  // =========================
+  // UI
+  // =========================
+  const filesInput = document.getElementById("files");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const logEl = document.getElementById("log");
+  const statsEl = document.getElementById("stats");
+  const grid = document.getElementById("grid");
+  const barFill = document.getElementById("barFill");
+
+  // Lista acumulada
+  let selectedFiles = [];
+
+  const fmtMB = (bytes) => (bytes / (1024*1024)).toFixed(1) + " MB";
+  const isVideo = (f) => (f.type || "").startsWith("video/");
+  const ext = (name="") => name.toLowerCase().split(".").pop();
+
+  function fileKey(f){
+    return `${f.name}__${f.size}__${f.lastModified || 0}`;
+  }
+
+  function log(msg, cls="") {
+    const div = document.createElement("div");
+    div.className = cls;
+    div.textContent = msg;
+    logEl.appendChild(div);
+  }
+
+  function setProgress(pct) {
+    barFill.style.width = `${pct}%`;
+  }
+
+  function updateStats() {
+    const totalBytes = selectedFiles.reduce((a,f) => a + f.size, 0);
+    if (selectedFiles.length === 0) {
+      statsEl.textContent = "0 archivos seleccionados.";
+    } else {
+      statsEl.textContent = `${selectedFiles.length} archivo(s) • Total: ${fmtMB(totalBytes)} (máx. ${MAX_FILES_PER_BATCH} por subida)`;
+    }
+  }
+
+  function resetUI(showThanks=false) {
+    filesInput.value = "";
+    selectedFiles = [];
+    grid.innerHTML = "";
+    logEl.innerHTML = "";
+    updateStats();
+    setProgress(0);
+    if (showThanks) log("🎉 ¡Listo! Gracias por compartir estos recuerdos 💛", "ok");
+  }
+
+  function validateSelection(files) {
+    const errors = [];
+    const warnings = [];
+
+    if (files.length > MAX_FILES_PER_BATCH) {
+      warnings.push(`Tienes ${files.length} seleccionados. En esta subida se enviarán solo los primeros ${MAX_FILES_PER_BATCH}.`);
+    }
+
+    files.slice(0, MAX_FILES_PER_BATCH).forEach(f => {
+      const mb = f.size / (1024*1024);
+      const okType = ALLOWED.includes(f.type) || ALLOWED_EXT.includes(ext(f.name));
+      if (!okType) errors.push(`Tipo no permitido: ${f.name} (${f.type || "sin tipo"})`);
+      if (mb > MAX_FILE_MB) errors.push(`Archivo muy grande (> ${MAX_FILE_MB}MB): ${f.name} (${fmtMB(f.size)})`);
+    });
+
+    return { errors, warnings };
+  }
+
+  function render() {
+    // logs: no los borramos automáticamente para que el usuario vea avisos
+    updateStats();
+
+    // Preview solo de los primeros N (lo que subirías en esta tanda)
+    const view = selectedFiles.slice(0, MAX_FILES_PER_BATCH);
+
+    grid.innerHTML = "";
+    view.forEach((f, idx) => {
+      const url = URL.createObjectURL(f);
+
+      const box = document.createElement("div");
+      box.className = "thumb";
+
+      const tagText = (isVideo(f) || ["mp4","mov","webm"].includes(ext(f.name))) ? "VIDEO" : "FOTO";
+      box.innerHTML = `
+        <div class="tag">${tagText}</div>
+        <button class="remove-x" type="button" aria-label="Eliminar">✕</button>
+        `;
+
+      const removeBtn = box.querySelector(".remove-x");
+      removeBtn.addEventListener("click", () => {
+        // Quita por clave
+        const k = fileKey(f);
+        selectedFiles = selectedFiles.filter(x => fileKey(x) !== k);
+        log(`🗑️ Eliminado: ${f.name}`, "warn");
+        render();
+      });
+
+      if (tagText === "VIDEO") {
+        const v = document.createElement("video");
+        v.src = url;
+        v.muted = true;
+        v.playsInline = true;
+        v.preload = "metadata";
+        v.controls = true;
+        box.appendChild(v);
+      } else {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = f.name;
+        box.appendChild(img);
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `<b title="${f.name}">${f.name}</b><div>${fmtMB(f.size)} • ${f.type || "archivo"}</div>`;
+      box.appendChild(meta);
+
+      grid.appendChild(box);
+    });
+
+    // Validación (muestra solo nuevos mensajes)
+    const { errors, warnings } = validateSelection(selectedFiles);
+    // No repetimos warnings infinitamente: solo mostramos el más relevante actual
+    // (limpiamos warnings anteriores de validación si quieres, pero por simplicidad lo dejamos)
+  }
+
+  // ✅ Agregar sin borrar
+  filesInput.addEventListener("change", () => {
+    const incoming = [...filesInput.files];
+    if (incoming.length === 0) return;
+
+    const existing = new Set(selectedFiles.map(fileKey));
+    let added = 0, dup = 0;
+
+    for (const f of incoming) {
+      const k = fileKey(f);
+      if (existing.has(k)) { dup++; continue; }
+      selectedFiles.push(f);
+      existing.add(k);
+      added++;
+    }
+
+    // Reset del input para permitir re-seleccionar lo mismo
+    filesInput.value = "";
+
+    if (added > 0) log(`➕ Agregados: ${added} archivo(s).`, "ok");
+    if (dup > 0) log(`ℹ️ Duplicados ignorados: ${dup}.`, "warn");
+
+    const { errors, warnings } = validateSelection(selectedFiles);
+    warnings.forEach(w => log("⚠️ " + w, "warn"));
+    errors.forEach(e => log("❌ " + e, "err"));
+
+    render();
+  });
+
+  clearBtn.addEventListener("click", () => resetUI(false));
+
+  // =========================
+  // Upload (Cloudinary)
+  // =========================
+  async function uploadOne(file, index, total) {
+    const endpoint = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`;
+    const form = new FormData();
+    form.append("file", file);
+    form.append("upload_preset", UPLOAD_PRESET);
+    form.append("folder", FOLDER);
+
+    const safeBase = (file.name || "archivo").replace(/\.[^/.]+$/, "").slice(0, 50);
+    const unique = `${Date.now()}_${Math.random().toString(16).slice(2)}_${safeBase}`;
+    form.append("public_id", unique);
+
+    const res = await fetch(endpoint, { method: "POST", body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error?.message || "Error subiendo");
+
+    log(`✅ (${index+1}/${total}) Subido: ${file.name}`, "ok");
+    return data;
+  }
+
+  uploadBtn.addEventListener("click", async () => {
+    setProgress(0);
+
+    if (selectedFiles.length === 0) {
+      log("Selecciona al menos un archivo.", "err");
+      return;
+    }
+
+    const batch = selectedFiles.slice(0, MAX_FILES_PER_BATCH);
+    const { errors, warnings } = validateSelection(selectedFiles);
+    warnings.forEach(w => log("⚠️ " + w, "warn"));
+
+    if (errors.length) {
+      errors.forEach(e => log("❌ " + e, "err"));
+      log("Corrige esos archivos y vuelve a intentar.", "err");
+      return;
+    }
+
+    uploadBtn.disabled = true;
+    clearBtn.disabled = true;
+
+    try {
+      for (let i = 0; i < batch.length; i++) {
+        try {
+          await uploadOne(batch[i], i, batch.length);
+        } catch (e) {
+          log(`❌ (${i+1}/${batch.length}) Falló: ${batch[i].name} — ${e.message}`, "err");
+        }
+        setProgress(Math.round(((i+1)/batch.length)*100));
+      }
+
+      // ✅ Limpia TODO al finalizar
+      resetUI(true);
+    } finally {
+      uploadBtn.disabled = false;
+      clearBtn.disabled = false;
+    }
+  });
+
+  // =========================
+  // Extra: inyectar estilo para el botón Quitar
+  // (No toca tu CSS principal, pero usa tus colores)
+  // =========================
+  (function injectRemoveBtnCSS(){
+    const css = `
+      .remove-x{
+        position:absolute;
+        top:8px;
+        right:8px;
+        width:28px;
+        height:28px;
+        border-radius:50%;
+        border: 1px solid rgba(183,146,93,.55);
+        background: rgba(7,20,38,.78);
+        color: #D8C29A;
+        font-size: 18px;
+        line-height: 26px;
+        text-align:center;
+        cursor:pointer;
+        font-family: system-ui, sans-serif;
+        font-weight: 700;
+        backdrop-filter: blur(6px);
+        }
+
+        .remove-x:hover{
+        background: rgba(255,255,255,.12);
+        transform: scale(1.05);
+        }
+    `;
+    const style = document.createElement("style");
+    style.textContent = css;
+    document.head.appendChild(style);
+  })();
+
+  // Estado inicial
+  resetUI(false);
+</script>
+
+</body>
+</html>
