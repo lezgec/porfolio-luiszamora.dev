@@ -8,7 +8,7 @@
   <!-- Tipos similares (script elegante + serif) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -33,8 +33,6 @@
       color: var(--ink);
       font-family: "Cormorant Garamond", serif;
       background:
-        radial-gradient(900px 650px at 20% 0%, rgba(183,146,93,.18), transparent 55%),
-        radial-gradient(900px 650px at 85% 10%, rgba(255,255,255,.08), transparent 60%),
         linear-gradient(180deg, var(--navy-0), var(--navy-2));
     }
 
@@ -49,7 +47,6 @@
     /* Tarjeta estilo invitación */
     .card{
       border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border-radius: calc(var(--r) + 10px);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -61,7 +58,6 @@
       content:"";
       position:absolute;
       inset:-40%;
-      background: radial-gradient(circle at 30% 25%, rgba(183,146,93,.22), transparent 45%);
       transform: rotate(-8deg);
       pointer-events:none;
     }
@@ -76,8 +72,9 @@
       padding: 8px 0 14px;
     }
     .names{
-      font-family: "Great Vibes", cursive;
+      font-family: "Allura", cursive;
       font-size: clamp(46px, 7vw, 86px);
+      font-style: normal;
       color: var(--gold-2);
       margin: 0;
       line-height: .95;
@@ -87,6 +84,7 @@
       margin-top: 8px;
       color: var(--muted);
       letter-spacing: .18em;
+      text-align:center;
       text-transform: uppercase;
       font-size: 14px;
     }
@@ -257,6 +255,44 @@
       button{ flex: 1; min-width: 0; }
       .text{ font-size: 17px; }
     }
+    .pick-btn{
+  width: 100%;
+  border: 1px dashed rgba(183,146,93,.65);
+  background: rgba(8,25,43,.35);
+  border-radius: 18px;
+  padding: 16px 14px;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  transition: transform .08s ease, background .2s ease, border-color .2s ease;
+}
+
+.pick-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(216,194,154,.85);
+}
+
+.pick-icon{
+  font-size: 28px;
+  line-height: 1;
+}
+
+.pick-text{
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--gold-2);
+}
+
+.pick-sub{
+  font-size: 14px;
+  color: var(--muted);
+}
+
   </style>
 </head>
 
@@ -270,18 +306,23 @@
           <div class="divider"></div>
         </div>
 
-        <div class="text">
-          Nos sentimos muy felices de iniciar un nuevo capítulo y queremos guardar
-          los recuerdos de este día con ustedes. 💛
+        <div class="subtitle">
+          Nos sentimos muy felices de iniciar un nuevo capítulo y queremos guardar los recuerdos de este día con ustedes.
         </div>
 
         <div class="date">31.01.26</div>
-        <div class="hint">Sube tus fotos y videos aquí (desde tu celular o PC).</div>
+        <div class="subtitle">Sube tus fotos y videos aquí.</div>
 
         <div class="uploader">
           <div class="filebox">
-            <input id="files" type="file" accept="image/*,video/*" multiple />
-            <div class="stats" id="stats">0 archivos seleccionados.</div>
+            <input id="files" type="file" accept="image/*,video/*" multiple hidden />
+
+            <button id="pickBtn" type="button" class="pick-btn">
+            <span class="pick-text">Elegir fotos y videos</span>
+            <span class="pick-sub">Desde tu galería o cámara</span>
+            </button>
+
+            <div class="subtitle" id="stats">0 archivos seleccionados.</div>
 
             <div class="controls" style="margin-top:12px;">
               <button id="uploadBtn" class="primary">Subir</button>
@@ -331,6 +372,9 @@
   const statsEl = document.getElementById("stats");
   const grid = document.getElementById("grid");
   const barFill = document.getElementById("barFill");
+  const pickBtn = document.getElementById("pickBtn");
+pickBtn.addEventListener("click", () => filesInput.click());
+
 
   // Lista acumulada
   let selectedFiles = [];
