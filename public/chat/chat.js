@@ -4,6 +4,7 @@
 
   // ✅ Ejecutar solo cuando el DOM ya existe
   document.addEventListener("DOMContentLoaded", () => {
+    let myUser = "";
     let socket = null;
     let currentRoom = "general";
 
@@ -31,15 +32,40 @@
     const roomsBtn = el("roomsBtn");
     const roomWhoBtn = el("roomWhoBtn");
     const joinRoomBtn = el("joinRoomBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    if (clearBtn) clearBtn.addEventListener("click", () => {
+      messagesEl.innerHTML = "";
+    });
 
     function setStatus(text) {
       statusEl.textContent = text;
     }
 
-    function addLine(text) {
-      const div = document.createElement("div");
-      div.textContent = text;
-      messagesEl.appendChild(div);
+    function addLine(text, kind = "info", meta = {}) {
+      const row = document.createElement("div");
+      row.className = "w-full flex";
+
+      const bubble = document.createElement("div");
+
+      const isMine = meta.from && meta.from === myUser && kind === "message";
+
+      row.classList.add(isMine ? "justify-end" : "justify-start");
+
+      if (kind === "message") {
+        bubble.className =
+          "max-w-[85%] sm:max-w-[70%] rounded-2xl px-4 py-3 text-sm border " +
+          (isMine
+            ? "bg-emerald-500 text-black border-emerald-400"
+            : "bg-white/10 text-white border-white/10");
+      } else if (kind === "error") {
+        bubble.className = "w-full rounded-xl px-4 py-3 text-sm bg-red-500/15 text-red-200 border border-red-500/20";
+      } else {
+        bubble.className = "w-full rounded-xl px-4 py-3 text-sm bg-white/5 text-gray-200 border border-white/10";
+      }
+
+      bubble.textContent = text;
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
@@ -49,7 +75,18 @@
     }
 
     function setRoomUsers(users) {
-      roomUsersEl.textContent = users && users.length ? users.join(", ") : "(vacío)";
+      roomUsersEl.innerHTML = "";
+      const list = (users || []).slice().sort();
+      if (!list.length) {
+        roomUsersEl.innerHTML = `<div class="text-gray-400">(vacío)</div>`;
+        return;
+      }
+      for (const u of list) {
+        const item = document.createElement("div");
+        item.className = "flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2";
+        item.innerHTML = `<span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span><span>${u}</span>`;
+        roomUsersEl.appendChild(item);
+      }
     }
 
     function send(obj) {
@@ -86,7 +123,7 @@
         loginBox.classList.add("hidden");
         chatBox.classList.remove("hidden");
         setRoom(asString(raw.room));
-        addLine("✔ Sesión iniciada");
+        addLine("✔ Sesión iniciada", "info");
         setStatus("Listo.");
         return;
       }
@@ -95,12 +132,12 @@
         const message = asString(raw.message) || "(sin mensaje)";
         const room = asString(raw.room);
         if (room) setRoom(room);
-        addLine(`[INFO] ${message}`);
+        addLine(message, "info");
         return;
       }
 
       if (type === "error") {
-        addLine(`[ERROR] ${asString(raw.message) || "Error desconocido"}`);
+        addLine(asString(raw.message) || "Error desconocido", "error");
         return;
       }
 
@@ -109,7 +146,7 @@
         const room = asString(raw.room) || "general";
         const from = asString(raw.from) || "?";
         const text = asString(raw.text) || "";
-        addLine(`${when} (${room}) ${from}: ${text}`);
+        addLine(`${from}: ${text} • ${when}`, "message", { from, room });
         return;
       }
 
@@ -162,6 +199,7 @@
 
     connectBtn.addEventListener("click", () => {
       const username = (usernameInput.value || "").trim();
+      myUser = username;
       if (!username) {
         setStatus("Ingresa un usuario.");
         return;

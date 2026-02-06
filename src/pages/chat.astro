@@ -1,58 +1,93 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import "../../public/chat/chat";
 ---
 
 <Layout title="Chat en Tiempo Real">
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold m-8">Chat en Tiempo Real</h1>
-
-    <!-- Login -->
-    <div id="loginBox" class="flex gap-2 mb-4">
-      <input id="username" class="border rounded px-3 py-2 w-64" placeholder="Tu usuario" />
-      <button id="connectBtn" class="bg-blue-600 text-white rounded px-4 py-2">
-        Conectar
-      </button>
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-24 pb-10 relative z-10">
+    <div class="mb-6">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">Chat en Tiempo Real</h1>
+      <p id="status" class="mt-2 text-sm text-gray-300">Desconectado.</p>
     </div>
 
-    <!-- Estado -->
-    <div id="status" class="text-sm mb-3 text-gray-600"></div>
+    <!-- Login -->
+    <div id="loginBox" class="bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input
+          id="username"
+          class="w-full sm:w-72 rounded-xl border border-white/10 bg-black/30 text-white placeholder:text-gray-400 px-4 py-3 outline-none focus:ring-2 focus:ring-white/20"
+          placeholder="Tu usuario"
+          autocomplete="username"
+          inputmode="text"
+        />
+        <button
+          id="connectBtn"
+          class="rounded-xl bg-white text-black font-semibold px-5 py-3 hover:bg-gray-200 transition"
+        >
+          Conectar
+        </button>
+      </div>
+      <p class="mt-3 text-xs text-gray-400">
+        Tip: usa <b>/rooms</b>, <b>/roomwho</b>, <b>/room nombre</b>, <b>/exit</b>
+      </p>
+    </div>
 
     <!-- Chat -->
-    <div id="chatBox" class="hidden">
-      <div class="flex flex-wrap gap-2 mb-3">
-        <button id="roomsBtn" class="bg-gray-200 rounded px-3 py-1">/rooms</button>
-        <button id="roomWhoBtn" class="bg-gray-200 rounded px-3 py-1">/roomwho</button>
-        <button id="joinRoomBtn" class="bg-gray-200 rounded px-3 py-1">/room</button>
+    <div id="chatBox" class="hidden mt-6">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button id="roomsBtn" class="px-3 py-2 rounded-xl bg-white/10 text-white border border-white/10 hover:bg-white/15 transition">/rooms</button>
+        <button id="roomWhoBtn" class="px-3 py-2 rounded-xl bg-white/10 text-white border border-white/10 hover:bg-white/15 transition">/roomwho</button>
+        <button id="joinRoomBtn" class="px-3 py-2 rounded-xl bg-white/10 text-white border border-white/10 hover:bg-white/15 transition">/room</button>
+
+        <div class="ml-auto flex items-center gap-2 text-sm text-gray-300">
+          <span class="opacity-70">Sala:</span>
+          <span id="currentRoom" class="px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white">general</span>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <div class="md:col-span-3">
-          <div id="messages" class="border rounded h-96 overflow-y-auto p-3 bg-white"></div>
-
-          <div class="flex gap-2 mt-3">
-            <input id="msgInput" class="border rounded px-3 py-2 flex-1" placeholder="Escribe un mensaje y Enter..." />
-            <button id="sendBtn" class="bg-green-600 text-white rounded px-4 py-2">Enviar</button>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <!-- Mensajes -->
+        <section class="lg:col-span-3 bg-white/5 border border-white/10 rounded-2xl backdrop-blur overflow-hidden">
+          <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+            <div class="text-sm text-gray-300">
+              Mensajes
+              <span class="opacity-60">• en tiempo real</span>
+            </div>
+            <button id="clearBtn" class="text-xs text-gray-300 hover:text-white transition">Limpiar</button>
           </div>
 
-          <p class="text-xs text-gray-500 mt-2">
-            Comandos: <b>/rooms</b>, <b>/roomwho</b>, <b>/room &lt;nombre&gt;</b>, <b>/exit</b>
-          </p>
-        </div>
+          <div id="messages" class="h-[55vh] sm:h-[60vh] overflow-y-auto px-4 py-4 space-y-3"></div>
 
-        <div class="md:col-span-1">
-          <div class="border rounded p-3 bg-white">
-            <div class="font-semibold mb-2">Sala actual</div>
-            <div id="currentRoom" class="text-sm mb-3">general</div>
-
-            <div class="font-semibold mb-2">Usuarios en sala</div>
-            <div id="roomUsers" class="text-sm text-gray-700"></div>
+          <div class="p-3 border-t border-white/10 bg-black/10">
+            <div class="flex gap-2">
+              <input
+                id="msgInput"
+                class="flex-1 rounded-xl border border-white/10 bg-black/30 text-white placeholder:text-gray-400 px-4 py-3 outline-none focus:ring-2 focus:ring-white/20"
+                placeholder="Escribe un mensaje y Enter…"
+                inputmode="text"
+              />
+              <button
+                id="sendBtn"
+                class="rounded-xl bg-emerald-500 text-black font-semibold px-5 py-3 hover:bg-emerald-400 transition"
+              >
+                Enviar
+              </button>
+            </div>
+            <div class="mt-2 text-[11px] text-gray-400">
+              Comandos: <b>/rooms</b>, <b>/roomwho</b>, <b>/room &lt;nombre&gt;</b>, <b>/exit</b>
+            </div>
           </div>
-        </div>
+        </section>
+
+        <!-- Usuarios -->
+        <aside class="lg:col-span-1 bg-white/5 border border-white/10 rounded-2xl backdrop-blur overflow-hidden">
+          <div class="px-4 py-3 border-b border-white/10 text-sm text-gray-300">
+            Usuarios en sala
+          </div>
+          <div class="p-4">
+            <div id="roomUsers" class="text-sm text-gray-200 space-y-2"></div>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
-
-  <!-- ✅ Tipado TS para evitar errores del checker -->
-  <script type="module" src="/chat/chat.js"></script>
 </Layout>
