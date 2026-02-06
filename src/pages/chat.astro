@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../../public/chat/chat";
+---
+
+<Layout title="Chat en Tiempo Real">
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold m-8">Chat en Tiempo Real</h1>
+
+    <!-- Login -->
+    <div id="loginBox" class="flex gap-2 mb-4">
+      <input id="username" class="border rounded px-3 py-2 w-64" placeholder="Tu usuario" />
+      <button id="connectBtn" class="bg-blue-600 text-white rounded px-4 py-2">
+        Conectar
+      </button>
+    </div>
+
+    <!-- Estado -->
+    <div id="status" class="text-sm mb-3 text-gray-600"></div>
+
+    <!-- Chat -->
+    <div id="chatBox" class="hidden">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <button id="roomsBtn" class="bg-gray-200 rounded px-3 py-1">/rooms</button>
+        <button id="roomWhoBtn" class="bg-gray-200 rounded px-3 py-1">/roomwho</button>
+        <button id="joinRoomBtn" class="bg-gray-200 rounded px-3 py-1">/room</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="md:col-span-3">
+          <div id="messages" class="border rounded h-96 overflow-y-auto p-3 bg-white"></div>
+
+          <div class="flex gap-2 mt-3">
+            <input id="msgInput" class="border rounded px-3 py-2 flex-1" placeholder="Escribe un mensaje y Enter..." />
+            <button id="sendBtn" class="bg-green-600 text-white rounded px-4 py-2">Enviar</button>
+          </div>
+
+          <p class="text-xs text-gray-500 mt-2">
+            Comandos: <b>/rooms</b>, <b>/roomwho</b>, <b>/room &lt;nombre&gt;</b>, <b>/exit</b>
+          </p>
+        </div>
+
+        <div class="md:col-span-1">
+          <div class="border rounded p-3 bg-white">
+            <div class="font-semibold mb-2">Sala actual</div>
+            <div id="currentRoom" class="text-sm mb-3">general</div>
+
+            <div class="font-semibold mb-2">Usuarios en sala</div>
+            <div id="roomUsers" class="text-sm text-gray-700"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Tipado TS para evitar errores del checker -->
+  <script type="module" src="/chat/chat.js"></script>
+</Layout>
