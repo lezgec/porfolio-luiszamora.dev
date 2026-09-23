@@ -1,0 +1,106 @@
+---
+// GlitchName.astro
+---
+<span class="inline-flex items-center text-gray-900 dark:text-white">
+  <!-- El texto principal interactivo (hereda el tamaño del H1 padre) -->
+  <span
+    id="glitch-title"
+    class="cursor-pointer select-none transition-colors hover:text-blue-700 dark:hover:text-yellow-200"
+  >
+    Lezgec
+  </span>
+  <!-- El cursor parpadeante adaptado a tus colores -->
+  <span class="font-bold text-blue-700 dark:text-yellow-200 animate-pulse ml-1">_</span>
+</span>
+
+<style>
+  /* Clase que se activa mediante JS para el efecto visual de "romperse" */
+  .glitch-active {
+    animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    transform-origin: center;
+  }
+
+  @keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-10deg); color: #0ff; }
+    40% { transform: skew(10deg); text-shadow: -2px 0 red; }
+    60% { transform: skew(-5deg); color: #fff; }
+    80% { transform: skew(5deg); text-shadow: 2px 0 blue; }
+    100% { transform: skew(0deg); }
+  }
+</style>
+
+<script>
+  // Lógica de cliente en Astro
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.getElementById('glitch-title');
+    if (!titleElement) return;
+    const title = titleElement;
+
+    const alias = "Lezgec";
+    const realName = "Luis Zamora";
+    
+    // Estado
+    let isShowingRealName = false;
+    let isAnimating = false;
+
+    // Caracteres aleatorios para simular interferencia mientras se escribe
+    const glitchChars = "!<>-_\\\\/[]{}—=+*^?#________";
+
+    // 1. Al cargar la página: Espera 1.5s y cambia a "Luis Zamora"
+    setTimeout(() => {
+      triggerEffect(alias, realName);
+      isShowingRealName = true;
+    }, 1500);
+
+    // 2. Al hacer clic: Alterna entre un nombre y otro
+    title.addEventListener('click', () => {
+      if (isAnimating) return; // Evita clics múltiples mientras se anima
+      
+      if (isShowingRealName) {
+        triggerEffect(realName, alias);
+        isShowingRealName = false;
+      } else {
+        triggerEffect(alias, realName);
+        isShowingRealName = true;
+      }
+    });
+
+    // Función principal que controla el borrado y la reescritura
+    async function triggerEffect(fromText: string, toText: string) {
+      isAnimating = true;
+      
+      // Añade el temblor visual CSS
+      title.classList.add('glitch-active');
+
+      // Fase 1: Borrar texto actual (Máquina de escribir hacia atrás)
+      for (let i = fromText.length; i >= 0; i--) {
+        title.textContent = fromText.substring(0, i);
+        await sleep(40); // Velocidad de borrado
+      }
+
+      // Quitamos el temblor intenso antes de empezar a escribir
+      title.classList.remove('glitch-active');
+
+      // Fase 2: Escribir nuevo texto con interferencia
+      for (let i = 0; i <= toText.length; i++) {
+        let currentString = toText.substring(0, i);
+        
+        // Mientras no haya terminado, añade un símbolo "glitch" al final
+        if (i < toText.length) {
+            currentString += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        
+        title.textContent = currentString;
+        await sleep(80); // Velocidad de escritura
+      }
+
+      isAnimating = false;
+    }
+
+    // Utilidad para pausar la ejecución en funciones async
+    function sleep(ms: number | undefined) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  }); 
+</script>
