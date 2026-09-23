@@ -1,41 +1,81 @@
 function calcularIMC() {
-    const peso = parseFloat(document.getElementById("peso").value);
-    const altura = parseFloat(document.getElementById("altura").value)/100;
+    const peso = Number(document.getElementById("peso").value);
+    const alturaCm = Number(document.getElementById("altura").value);
 
-    if (!peso || !altura) {
-        document.getElementById("resultado").style.color = "red";
-        document.getElementById("resultado").innerText = "Por favor, complete los campos.";
+    const resultado = document.getElementById("resultado");
+    const clasificacion = document.getElementById("clasificacion");
+
+    // Limpiar resultados y colores anteriores.
+    resultado.textContent = "";
+    resultado.style.color = "";
+    clasificacion.textContent = "";
+    clasificacion.style.color = "";
+
+    if (
+        !Number.isFinite(peso) ||
+        !Number.isFinite(alturaCm) ||
+        peso <= 0 ||
+        alturaCm <= 0
+    ) {
+        resultado.style.color = "red";
+        resultado.textContent =
+            "Ingresa un peso y una altura válidos, mayores que cero.";
         return;
     }
 
-    const imc = (peso / (altura * altura)).toFixed(2);
-    let clasificacion = "";
+    const altura = alturaCm / 100;
+    const imc = peso / (altura * altura);
 
-    if (imc >= 0 && imc < 18.5) {
-    clasificacion = "Peso Bajo";
-    document.getElementById("clasificacion").style.color = "blue";
-    } else if (imc >= 18.5 && imc < 25) {
-        clasificacion = "Peso Normal";
-        document.getElementById("clasificacion").style.color = "green";
-    } else if (imc >= 25 && imc < 30) {
-        clasificacion = "Sobrepeso";
-        document.getElementById("clasificacion").style.color = "yellow";
-    } else if (imc >= 30 && imc < 35) {
-        clasificacion = "Obesidad Leve";
-        document.getElementById("clasificacion").style.color = "orange";
-    } else if (imc >= 35 && imc < 40) {
-        clasificacion = "Obesidad Media";
-        document.getElementById("clasificacion").style.color = "red";
-    } else if (imc >= 40) {
-        clasificacion = "Obesidad Mórbida";
-        document.getElementById("clasificacion").style.color = "red";
-    } else {
-        clasificacion = "Valor inválido";
-        document.getElementById("clasificacion").style.color = "black";
+    if (!Number.isFinite(imc) || imc <= 0) {
+        resultado.style.color = "red";
+        resultado.textContent =
+            "No se pudo calcular el IMC. Revisa los valores ingresados.";
+        return;
     }
 
-    
+    let texto;
+    let color;
 
-    document.getElementById("resultado").innerText = `Su índice de Masa Corporal(IMC) es de:  ${imc} `;
-    document.getElementById("clasificacion").innerText = `${clasificacion} `;
+    // Comparar el valor completo, sin redondearlo.
+    if (imc < 18.5) {
+        texto = "Peso Bajo";
+        color = "blue";
+    } else if (imc < 25) {
+        texto = "Peso Normal";
+        color = "green";
+    } else if (imc < 30) {
+        texto = "Sobrepeso";
+        color = "#854d0e";
+    } else if (imc < 35) {
+        texto = "Obesidad Leve";
+        color = "#9a3412";
+    } else if (imc < 40) {
+        texto = "Obesidad Media";
+        color = "red";
+    } else {
+        texto = "Obesidad Mórbida";
+        color = "red";
+    }
+
+    resultado.textContent =
+        `Su índice de masa corporal (IMC) es: ${imc.toFixed(2)}`;
+
+    clasificacion.textContent = texto;
+    clasificacion.style.color = color;
 }
+
+const formulario = document.getElementById("formulario-imc");
+
+formulario.addEventListener("submit", function (event) {
+    event.preventDefault();
+    calcularIMC();
+});
+
+// Quitar resultados anteriores cuando cambian los datos.
+formulario.addEventListener("input", function () {
+    for (const id of ["resultado", "clasificacion"]) {
+        const elemento = document.getElementById(id);
+        elemento.textContent = "";
+        elemento.style.color = "";
+    }
+});
